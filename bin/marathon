@@ -1,0 +1,23 @@
+#!/bin/bash
+
+[ $# -ne 1 ] && echo "Usage: $0 <start|deploy|destroy>" && exit 1
+[ -z "${MARATHON_URL}" ] && echo 'Ops! MARATHON_URL is not set' && exit 1
+[ -f bin/compose.sh ] && source bin/compose.sh || exit 1
+
+case $1 in
+
+  start)
+    compose_json | jq '.' > /tmp/marathon.json
+    curl -sX POST -H "Content-type: application/json" ${MARATHON_URL}/v2/groups -d @/tmp/marathon.json | jq '.'
+    ;;
+
+  deploy)
+    compose_json | jq '.' > /tmp/marathon.json
+    curl -sX PUT -H "Content-type: application/json" ${MARATHON_URL}/v2/groups -d @/tmp/marathon.json | jq '.'
+    ;;
+
+  destroy)
+    curl -sX DELETE -H "Content-type: application/json" ${MARATHON_URL}/v2/groups/tva | jq '.'
+    ;;
+
+esac
