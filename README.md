@@ -13,7 +13,7 @@ Five docker containers are used to compose the product platform:
 - docker-tva-voting
 - docker-tva-worker
 
-#### clone
+#### Clone
 
 This is the control repository. A recursive Git clone is needed in order to pull all Git submodules:
 
@@ -22,8 +22,16 @@ git clone --recursive ${GIT_SERVER_URL}/the-voting-app.git
 cd the-voting-app && git submodule foreach 'git checkout master'
 ```
 
-Architecture
------
+#### Run
+
+Export `MARATHON_URL` to point to your Marathon scheduler and send the task request:
+
+```
+export MARATHON_URL='http://marathon.demo.mesos:8080'
+./bin/marathon start
+```
+
+#### Architecture
 
 ![Architecture diagram](architecture.png)
 
