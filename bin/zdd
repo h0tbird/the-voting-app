@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for i in $(ls containers); do
+  pushd containers/${i}
+  echo "Deploying ${i}..."
+  ./bin/zdd &>/dev/null &
+  popd
+done
