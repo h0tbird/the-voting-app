@@ -1,0 +1,68 @@
+- apiVersion: v1
+  kind: policy
+  metadata:
+    name: tva-voting
+  spec:
+    selector: app == 'voting'
+    ingress:
+    - action: allow
+      protocol: tcp
+      destination:
+        ports:
+        - 80
+    egress:
+    - action: allow
+- apiVersion: v1
+  kind: policy
+  metadata:
+    name: tva-redis
+  spec:
+    selector: app == 'redis'
+    ingress:
+    - action: allow
+      protocol: tcp
+      source:
+        selector: app in { 'voting', 'worker' }
+      destination:
+        ports:
+        - 6379
+    egress:
+    - action: allow
+- apiVersion: v1
+  kind: policy
+  metadata:
+    name: tva-worker
+  spec:
+    selector: app == 'worker'
+    egress:
+    - action: allow
+- apiVersion: v1
+  kind: policy
+  metadata:
+    name: tva-postgres
+  spec:
+    selector: app == 'postgres'
+    ingress:
+    - action: allow
+      protocol: tcp
+      source:
+        selector: app in { 'results', 'worker' }
+      destination:
+        ports:
+        - 5432
+    egress:
+    - action: allow
+- apiVersion: v1
+  kind: policy
+  metadata:
+    name: tva-results
+  spec:
+    selector: app == 'results'
+    ingress:
+    - action: allow
+      protocol: tcp
+      destination:
+        ports:
+        - 80
+    egress:
+    - action: allow
