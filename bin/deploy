@@ -19,7 +19,7 @@ ETCD_ENDPOINTS="${ETCD_ENDPOINTS:-'http://quorum-1:2379'}"
 
 compose_calico > /tmp/calico.yaml
 
-if ! calicoctl create --skip-exists -f /tmp/calico.yaml; then
+if ! calicoctl apply -f /tmp/calico.yaml; then
   echo "Ops! Unable to create the calico policy."
   exit 1
 fi
