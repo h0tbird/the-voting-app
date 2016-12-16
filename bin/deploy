@@ -19,10 +19,10 @@ ETCD_ENDPOINTS="${ETCD_ENDPOINTS:-'http://quorum-1:2379'}"
 
 compose_calico > /tmp/calico.yaml
 
-calicoctl create --skip-exists -f /tmp/calico.yaml || {
+if ! calicoctl create --skip-exists -f /tmp/calico.yaml; then
   echo "Ops! Unable to create the calico policy."
   exit 1
-}
+fi
 
 #------------------------------------------------------------------------------
 # Deploy the marathon app definition:
@@ -30,8 +30,8 @@ calicoctl create --skip-exists -f /tmp/calico.yaml || {
 
 compose_marathon | jq '.' > /tmp/marathon.json
 
-curl -sX PUT -H "Content-type: application/json" \
-${MARATHON_URL}/v2/groups -d @/tmp/marathon.json | jq '.' || {
+if ! curl -sX PUT -H "Content-type: application/json" \
+${MARATHON_URL}/v2/groups -d @/tmp/marathon.json | jq '.'; then
   echo "Ops! Unable to deploy marathon app."
   exit 1
-}
+fi
