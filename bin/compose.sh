@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #------------------------------------------------------------------------------
-# compose_json
+# compose_marathon
 #------------------------------------------------------------------------------
 
-function compose_json {
+function compose_marathon {
 
   COUNT=$(ls containers/*/marathon.json | wc -l)
 
@@ -29,4 +29,12 @@ function compose_json {
   echo '  ]'
   echo '}'
 
+}
+
+#------------------------------------------------------------------------------
+# compose_calico
+#------------------------------------------------------------------------------
+
+function compose_calico {
+  cat containers/*/calico.yaml
 }

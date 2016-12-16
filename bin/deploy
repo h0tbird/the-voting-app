@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#------------------------------------------------------------------------------
+# Environment variables:
+#------------------------------------------------------------------------------
+
+MARATHON_URL="${MARATHON_URL:-'http://master-1:8080'}"
+ETCD_ENDPOINTS="${ETCD_ENDPOINTS:-'http://quorum-1:2379'}"
+
+#------------------------------------------------------------------------------
+# Source the compose functions:
+#------------------------------------------------------------------------------
+
+[ -f bin/compose.sh ] && source bin/compose.sh || exit 1
+
+#------------------------------------------------------------------------------
+# Deploy the calico policy definitions:
+#------------------------------------------------------------------------------
+
+compose_calico > /tmp/calico.yaml
+
+calicoctl create --skip-exists -f /tmp/calico.yaml || {
+  echo "Ops! Unable to create the calico policy."
+  exit 1
+}
+
+#------------------------------------------------------------------------------
+# Deploy the marathon app definition:
+#------------------------------------------------------------------------------
+
+compose_marathon | jq '.' > /tmp/marathon.json
+
+curl -sX PUT -H "Content-type: application/json" \
+${MARATHON_URL}/v2/groups -d @/tmp/marathon.json | jq '.' || {
+  echo "Ops! Unable to deploy marathon app."
+  exit 1
+}
