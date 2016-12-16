@@ -28,7 +28,7 @@ Export `MARATHON_URL` to point to your Marathon scheduler and send the task requ
 
 ```
 export MARATHON_URL='http://marathon.demo.mesos:8080'
-./bin/marathon start
+./bin/deploy
 ```
 
 #### Architecture
