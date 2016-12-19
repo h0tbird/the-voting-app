@@ -5,13 +5,13 @@ Example voting app (DockerConf US 2016)
 The original demo was designed to run on top of a `Swarm` scheduler with `docker compose`.  
 This one has been modified to run on top of a `Marathon/Mesos` scheduler.  
 
-Five docker containers are used to compose the product platform:
+Five containers are used to compose the product platform:
 
-- docker-tva-postgres
-- docker-tva-redis
-- docker-tva-results
-- docker-tva-voting
-- docker-tva-worker
+- tva-postgres
+- tva-redis
+- tva-results
+- tva-voting
+- tva-worker
 
 #### Clone
 

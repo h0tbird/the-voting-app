@@ -1,15 +1,15 @@
-[submodule "containers/docker-tva-postgres"]
-	path = containers/docker-tva-postgres
-	url = ../docker-tva-postgres.git
-[submodule "containers/docker-tva-redis"]
-	path = containers/docker-tva-redis
-	url = ../docker-tva-redis.git
-[submodule "containers/docker-tva-results"]
-	path = containers/docker-tva-results
-	url = ../docker-tva-results.git
-[submodule "containers/docker-tva-voting"]
-	path = containers/docker-tva-voting
-	url = ../docker-tva-voting.git
-[submodule "containers/docker-tva-worker"]
-	path = containers/docker-tva-worker
-	url = ../docker-tva-worker.git
+[submodule "containers/tva-postgres"]
+	path = containers/tva-postgres
+	url = ../tva-postgres.git
+[submodule "containers/tva-redis"]
+	path = containers/tva-redis
+	url = ../tva-redis.git
+[submodule "containers/tva-results"]
+	path = containers/tva-results
+	url = ../tva-results.git
+[submodule "containers/tva-voting"]
+	path = containers/tva-voting
+	url = ../tva-voting.git
+[submodule "containers/tva-worker"]
+	path = containers/tva-worker
+	url = ../tva-worker.git
