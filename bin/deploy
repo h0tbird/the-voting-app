@@ -4,8 +4,8 @@
 # Environment variables:
 #------------------------------------------------------------------------------
 
-MARATHON_URL="${MARATHON_URL:-'http://master-1:8080'}"
-ETCD_ENDPOINTS="${ETCD_ENDPOINTS:-'http://quorum-1:2379'}"
+export MARATHON_URL="${MARATHON_URL:-http://master-1:8080}"
+export ETCD_ENDPOINTS="${ETCD_ENDPOINTS:-http://quorum-1:2379}"
 
 #------------------------------------------------------------------------------
 # Source the compose functions:
