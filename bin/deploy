@@ -17,9 +17,11 @@ export ETCD_ENDPOINTS="${ETCD_ENDPOINTS:-http://quorum-1:2379}"
 # Deploy the calico policy definitions:
 #------------------------------------------------------------------------------
 
-compose_calico > /tmp/calico.yaml
+TMP_CALICO=$(mktemp /tmp/tva-calico.XXX)
+trap "rm -f ${TMP_CALICO}" INT TERM HUP EXIT
 
-if ! calicoctl apply -f /tmp/calico.yaml; then
+compose_calico > ${TMP_CALICO}
+if ! calicoctl apply -f ${TMP_CALICO}; then
   echo "Ops! Unable to create the calico policy."
   exit 1
 fi
@@ -28,10 +30,12 @@ fi
 # Deploy the marathon app definition:
 #------------------------------------------------------------------------------
 
-compose_marathon | jq '.' > /tmp/marathon.json
+TMP_MARATHON=$(mktemp /tmp/tva-marathon.XXX)
+trap "rm -f ${TMP_MARATHON}" INT TERM HUP EXIT
 
+compose_marathon | jq '.' > ${TMP_MARATHON}
 if ! curl -sX PUT -H "Content-type: application/json" \
-${MARATHON_URL}/v2/groups -d @/tmp/marathon.json | jq '.'; then
+${MARATHON_URL}/v2/groups -d @${TMP_MARATHON} | jq '.'; then
   echo "Ops! Unable to deploy marathon app."
   exit 1
 fi
