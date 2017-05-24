@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: results-tva
+  annotations:
+    traefik.backend.loadbalancer.sticky: "true"
 spec:
   ports:
     - name: http
