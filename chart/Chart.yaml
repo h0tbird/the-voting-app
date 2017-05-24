@@ -1,0 +1,4 @@
+apiVersion: v1
+description: The voting app
+name: chart
+version: 0.1.0
