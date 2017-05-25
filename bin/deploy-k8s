@@ -1,0 +1,9 @@
+#!/bin/bash
+
+LIST=$(git config --list | grep submodule)
+
+for i in postgres redis results voting worker; do
+  REPO=$(echo "${LIST}" | grep "tva-${i}" | awk -F= '{print $2}')
+  HASH=$(git ls-remote ${REPO} | awk '/HEAD/ {print $1}')
+  echo "${i}:${HASH::6}"
+done
