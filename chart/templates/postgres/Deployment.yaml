@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: postgres-tva
-        image: quay.io/h0tbird/tva-postgres:latest
+        image: "{{ .Values.postgres.image.repository }}:{{ .Values.postgres.image.tag }}"
         imagePullPolicy: Always
         resources:
           limits:

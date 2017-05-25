@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: voting-tva
-        image: quay.io/h0tbird/tva-voting:latest
+        image: "{{ .Values.voting.image.repository }}:{{ .Values.voting.image.tag }}"
         imagePullPolicy: Always
         resources:
           limits:
