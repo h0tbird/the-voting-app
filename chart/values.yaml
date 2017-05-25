@@ -13,7 +13,7 @@ postgres:
 
 redis:
   image:
-    repository: quay.io/softonic/tva-postgres
+    repository: quay.io/softonic/tva-redis
     tag: latest
 
 #------------------------------------------------------------------------------
