@@ -1,9 +1,26 @@
 #!/bin/bash
 
-LIST=$(git config --list | grep submodule)
+#------------------------------------------------------------------------------
+# helmSet produces dynamic helm --set arguments (example below):
+#
+#  --set postgres.image.tag=6a0d34
+#  --set redis.image.tag=5d34c2
+#  --set results.image.tag=6402ae
+#  --set voting.image.tag=88a2c1
+#  --set worker.image.tag=bd9d76
+#
+#------------------------------------------------------------------------------
 
-for i in postgres redis results voting worker; do
-  REPO=$(echo "${LIST}" | grep "tva-${i}" | awk -F= '{print $2}')
-  HASH=$(git ls-remote ${REPO} | awk '/HEAD/ {print $1}')
-  echo "${i}:${HASH::6}"
-done
+function helmSet() {
+  for i in $(git config --list | awk -F= '/submodule/ {print $2}'); do
+    HASH=$(git ls-remote ${i} | awk '/HEAD/ {print $1}')
+    NAME=$(echo ${i} | awk -F'[.-]' '{print $(NF-1)}')
+    echo -n "--set ${NAME}.image.tag=${HASH::6} "
+  done
+}
+
+#------------------------------------------------------------------------------
+# Run 'helm upgrade' with dynamic arguments:
+#------------------------------------------------------------------------------
+
+helm upgrade thevotingapp chart $(helmSet)
