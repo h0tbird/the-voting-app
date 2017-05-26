@@ -23,4 +23,4 @@ function helmSet() {
 # Run 'helm upgrade' with dynamic arguments:
 #------------------------------------------------------------------------------
 
-helm upgrade thevotingapp chart $(helmSet)
+helm upgrade thevotingapp ${1} $(helmSet)
