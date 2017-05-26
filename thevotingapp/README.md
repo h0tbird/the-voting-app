@@ -1,3 +1,9 @@
+#### Package:
+
+```
+helm package .
+```
+
 #### Install:
 
 ```
