@@ -1,7 +1,31 @@
-#### Install:
+#### Package:
 
 ```
+helm package .
+```
+
+#### Login:
+
+```
+helm registry login -u <user> quay.io
+```
+
+#### Publish:
+
+```
+helm registry push --namespace <namespace> --channel <channel> quay.io
+```
+
+#### Install:
+
+From current directory:
+```
 helm install --namespace thevotingapp --name thevotingapp .
+```
+
+From a registry:
+```
+helm registry install quay.io/<namespace>/thevotingapp
 ```
 
 #### Upgrade:
