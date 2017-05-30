@@ -1,2 +1,3 @@
 *.swp
 *.tgz
+.DS_Store
