@@ -13,7 +13,7 @@ spec:
       containers:
       - name: voting-tva
         image: "{{ .Values.voting.image.repository }}:{{ .Values.voting.image.tag }}"
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         resources:
           limits:
             cpu: 100m
