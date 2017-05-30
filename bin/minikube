@@ -24,19 +24,39 @@ function miniStart {
 
 function miniSetup {
   minikube addons enable ingress
-  helm init
   eval $(minikube docker-env)
   minikube ssh "sudo ln -s ${HOME}/git /git"
+}
+
+#------------------------------------------------------------------------------
+# Deploy:
+#------------------------------------------------------------------------------
+
+function miniDeploy {
+  helm init --upgrade
+  until $(helm list &> /dev/null); do sleep 2; done
+  helm install thevotingapp \
+    --namespace thevotingapp \
+    --name thevotingapp \
+    --set environment=devel
 }
 
 #------------------------------------------------------------------------------
 # Main:
 #------------------------------------------------------------------------------
 
-echo -ne '  Minikube  #                         (0%)\r'
+echo -ne '  Minikube  ###                       (5%)\r'
 miniConfig > /dev/null
-echo -ne '  Minikube  #####                    (33%)\r'
+echo -ne '  Minikube  ########                 (25%)\r'
 miniStart > /dev/null
-echo -ne '  Minikube  #############            (66%)\r'
+echo -ne '  Minikube  #############            (50%)\r'
 miniSetup > /dev/null
-echo -ne '  Minikube  #######################  (100%)\r\n'
+echo -ne '  Minikube  ##################       (75%)\r'
+miniDeploy > /dev/null
+echo -ne '  Minikube  #######################  (100%)\r\n\n'
+
+#------------------------------------------------------------------------------
+# Info:
+#------------------------------------------------------------------------------
+
+helm status thevotingapp
