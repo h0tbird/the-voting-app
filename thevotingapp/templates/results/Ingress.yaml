@@ -1,17 +1,28 @@
-{{- if ne .Values.environment "devel" -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: results-tva
   annotations:
-    kubernetes.io/ingress.class: "traefik"
+    {{- if eq .Values.environment "devel" }}
+    ingress.kubernetes.io/rewrite-target: /
+    {{- else }}
+    kubernetes.io/ingress.class: traefik
+    {{- end }}
 spec:
+  {{- if eq .Values.environment "devel" }}
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+  {{- end }}
   rules:
+  {{- if eq .Values.environment "devel" }}
+  - host: results.minikube.io
+  {{- else }}
   - host: results.softonic.io
+  {{- end }}
     http:
       paths:
       - backend:
           serviceName: results-tva
           servicePort: 80
         path: /
-{{- end -}}
