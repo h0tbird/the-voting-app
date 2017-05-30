@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#------------------------------------------------------------------------------
+# Config:
+#------------------------------------------------------------------------------
+
+function miniConfig {
+  minikube config set vm-driver xhyve
+  minikube config set memory 4096
+  minikube config set cpus 2
+}
+
+#------------------------------------------------------------------------------
+# Start:
+#------------------------------------------------------------------------------
+
+function miniStart {
+  minikube start
+}
+
+#------------------------------------------------------------------------------
+# Setup:
+#------------------------------------------------------------------------------
+
+function miniSetup {
+  minikube addons enable ingress
+  helm init
+  eval $(minikube docker-env)
+  minikube ssh "sudo ln -s ${HOME}/git /git"
+}
+
+#------------------------------------------------------------------------------
+# Main:
+#------------------------------------------------------------------------------
+
+echo -ne '  Minikube  #                         (0%)\r'
+miniConfig > /dev/null
+echo -ne '  Minikube  #####                    (33%)\r'
+miniStart > /dev/null
+echo -ne '  Minikube  #############            (66%)\r'
+miniSetup > /dev/null
+echo -ne '  Minikube  #######################  (100%)\r\n'
