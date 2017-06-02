@@ -59,4 +59,4 @@ echo -ne '  Minikube  #######################  (100%)\r\n\n'
 #------------------------------------------------------------------------------
 
 helm status thevotingapp
-echo "\nReuse the Docker daemon inside the VM:" 'eval $(minikube docker-env)'
+echo "Reuse the Docker daemon inside the VM:" 'eval $(minikube docker-env)'
