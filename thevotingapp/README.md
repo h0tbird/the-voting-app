@@ -45,21 +45,35 @@ helm registry list -o h0tbird quay.io
 
 From the current directory:
 ```
-helm install --namespace thevotingapp --name thevotingapp .
+helm install \
+--namespace thevotingapp \
+--name thevotingapp .
 ```
 
-Set the environment to `devel`:
+Same but setting the environment to `devel`:
 ```
 helm install \
 --namespace thevotingapp \
 --name thevotingapp \
---set environment=devel
-.
+--set environment=devel .
 ```
 
 From a registry:
 ```
-helm registry install quay.io/h0tbird/thevotingapp
+helm registry install \
+quay.io/h0tbird/thevotingapp -- \
+--namespace thevotingapp \
+--name thevotingapp \
+--set environment=devel
+```
+
+Same but setting the environment to `devel`:
+```
+helm registry install \
+quay.io/h0tbird/thevotingapp -- \
+--namespace thevotingapp \
+--name thevotingapp \
+--set environment=devel
 ```
 
 #### Upgrade:
