@@ -3,6 +3,7 @@
 minikube config set memory 4096
 minikube config set cores 2
 minikube start
+minikube addons enable ingress
 minikube mount ${PWD}:/git/the-voting-app
 minikube dashboard
 ```
