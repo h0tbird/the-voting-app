@@ -3,15 +3,16 @@
 minikube config set memory 4096
 minikube config set cores 2
 minikube start
+minikube mount ${PWD}:/git/the-voting-app
 minikube dashboard
 ```
 
-#### Install the tiller:
+#### Install the Helm Tiller:
 ```
 helm init
 ```
 
-#### Package:
+#### Package the Helm Chart:
 
 ```
 helm package .
@@ -25,18 +26,18 @@ git clone https://github.com/app-registry/appr-helm-plugin.git registry
 helm registry --help
 ```
 
-#### Registry login:
+#### Helm registry login:
 ```
 helm registry login -u h0tbird quay.io
 ```
 
-#### Publish:
+#### Publish the Helm Chart:
 
 ```
 helm registry push --namespace h0tbird --channel stable quay.io
 ```
 
-#### List:
+#### List Helm Charts from h0tbird org:
 ```
 helm registry list -o h0tbird quay.io
 ```
