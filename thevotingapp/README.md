@@ -1,31 +1,65 @@
+#### Minikube:
+```
+minikube config set memory 4096
+minikube config set cores 2
+minikube start
+minikube dashboard
+```
+
+#### Install the tiller:
+```
+helm init
+```
+
 #### Package:
 
 ```
 helm package .
 ```
 
-#### Login:
-
+#### Install the Helm Registry plugin:
 ```
-helm registry login -u <user> quay.io
+mkdir -p ~/.helm/plugins
+cd ~/.helm/plugins
+git clone https://github.com/app-registry/appr-helm-plugin.git registry
+helm registry --help
+```
+
+#### Registry login:
+```
+helm registry login -u h0tbird quay.io
 ```
 
 #### Publish:
 
 ```
-helm registry push --namespace <namespace> --channel <channel> quay.io
+helm registry push --namespace h0tbird --channel stable quay.io
 ```
 
-#### Install:
+#### List:
+```
+helm registry list -o h0tbird quay.io
+```
 
-From current directory:
+#### Install (deploy to k8s):
+
+From the current directory:
 ```
 helm install --namespace thevotingapp --name thevotingapp .
 ```
 
+Set the environment to `devel`:
+```
+helm install \
+--namespace thevotingapp \
+--name thevotingapp \
+--set environment=devel
+.
+```
+
 From a registry:
 ```
-helm registry install quay.io/<namespace>/thevotingapp
+helm registry install quay.io/h0tbird/thevotingapp
 ```
 
 #### Upgrade:

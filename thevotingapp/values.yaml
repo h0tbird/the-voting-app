@@ -6,7 +6,7 @@ environment: production
 
 postgres:
   image:
-    repository: quay.io/softonic/tva-postgres
+    repository: quay.io/h0tbird/tva-postgres
     tag: latest
 
 #------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ postgres:
 
 redis:
   image:
-    repository: quay.io/softonic/tva-redis
+    repository: quay.io/h0tbird/tva-redis
     tag: latest
 
 #------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ redis:
 
 results:
   image:
-    repository: quay.io/softonic/tva-results
+    repository: quay.io/h0tbird/tva-results
     tag: latest
 
 #------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ results:
 
 voting:
   image:
-    repository: quay.io/softonic/tva-voting
+    repository: quay.io/h0tbird/tva-voting
     tag: latest
 
 #------------------------------------------------------------------------------
@@ -42,5 +42,5 @@ voting:
 
 worker:
   image:
-    repository: quay.io/softonic/tva-worker
+    repository: quay.io/h0tbird/tva-worker
     tag: latest

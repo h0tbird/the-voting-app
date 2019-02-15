@@ -4,6 +4,7 @@ Example voting app (DockerConf US 2016)
 
 The original demo was designed to run on top of a `Swarm` scheduler with `docker compose`.  
 This one has been modified to run on top of a `Marathon/Mesos` scheduler.  
+Find also a `Kubernetes` Helm Chart in the `./thevotingapp` directory.
 
 Five containers are used to compose the product platform:
 
