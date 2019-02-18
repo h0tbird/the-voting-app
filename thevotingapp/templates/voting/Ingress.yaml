@@ -9,20 +9,18 @@ metadata:
     kubernetes.io/ingress.class: gce
     {{- end }}
 spec:
-  {{- if eq .Values.environment "devel" }}
   backend:
-    serviceName: default-http-backend
     servicePort: 80
-  {{- end }}
-  rules:
   {{- if eq .Values.environment "devel" }}
-  - host: vote.minikube.io
+    serviceName: default-http-backend
+  rules:
+    - host: vote.minikube.io
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: voting-tva
+            servicePort: 80
   {{- else }}
-  - host: vote.kato.one
+    serviceName: voting-tva
   {{- end }}
-    http:
-      paths:
-      - backend:
-          serviceName: voting-tva
-          servicePort: 80
-        path: /

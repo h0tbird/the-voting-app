@@ -9,20 +9,18 @@ metadata:
     kubernetes.io/ingress.class: gce
     {{- end }}
 spec:
-  {{- if eq .Values.environment "devel" }}
   backend:
-    serviceName: default-http-backend
     servicePort: 80
-  {{- end }}
-  rules:
   {{- if eq .Values.environment "devel" }}
-  - host: results.minikube.io
+    serviceName: default-http-backend
+  rules:
+    - host: results.minikube.io
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: results-tva
+            servicePort: 80
   {{- else }}
-  - host: results.kato.one
+    serviceName: results-tva
   {{- end }}
-    http:
-      paths:
-      - backend:
-          serviceName: results-tva
-          servicePort: 80
-        path: /
