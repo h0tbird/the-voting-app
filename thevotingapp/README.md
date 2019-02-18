@@ -25,26 +25,28 @@ gcloud beta container \
 --project "john-brown" \
 clusters create "kube-1" \
 --zone "europe-north1-a" \
---username "admin" \
 --cluster-version "1.11.7-gke.4" \
 --machine-type "n1-standard-2" \
 --image-type "COS" \
 --disk-type "pd-standard" \
 --disk-size "30" \
 --scopes \
-  "https://www.googleapis.com/auth/devstorage.read_only",\
-  "https://www.googleapis.com/auth/logging.write",\
-  "https://www.googleapis.com/auth/monitoring",\
-  "https://www.googleapis.com/auth/servicecontrol",\
-  "https://www.googleapis.com/auth/service.management.readonly",\
-  "https://www.googleapis.com/auth/trace.append" \
+"https://www.googleapis.com/auth/devstorage.read_only",\
+"https://www.googleapis.com/auth/logging.write",\
+"https://www.googleapis.com/auth/monitoring",\
+"https://www.googleapis.com/auth/servicecontrol",\
+"https://www.googleapis.com/auth/service.management.readonly",\
+"https://www.googleapis.com/auth/trace.append" \
 --preemptible \
 --num-nodes "1" \
 --no-enable-cloud-logging \
 --no-enable-cloud-monitoring \
+--no-enable-basic-auth \
+--no-issue-client-certificate \
 --enable-ip-alias \
 --network "projects/john-brown/global/networks/default" \
 --subnetwork "projects/john-brown/regions/europe-north1/subnetworks/default" \
+--metadata disable-legacy-endpoints=true \
 --default-max-pods-per-node "110" \
 --addons HorizontalPodAutoscaling,HttpLoadBalancing \
 --no-enable-autoupgrade \
@@ -112,7 +114,7 @@ helm install \
 --set environment=devel .
 ```
 
-From a registry:
+From the registry:
 ```
 helm registry install \
 quay.io/h0tbird/thevotingapp -- \
