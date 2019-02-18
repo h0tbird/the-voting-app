@@ -6,7 +6,7 @@ metadata:
     {{- if eq .Values.environment "devel" }}
     ingress.kubernetes.io/rewrite-target: /
     {{- else }}
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: gce
     {{- end }}
 spec:
   {{- if eq .Values.environment "devel" }}
@@ -18,7 +18,7 @@ spec:
   {{- if eq .Values.environment "devel" }}
   - host: results.minikube.io
   {{- else }}
-  - host: results.kato.io
+  - host: results.kato.one
   {{- end }}
     http:
       paths:

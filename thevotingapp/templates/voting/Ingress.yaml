@@ -6,7 +6,7 @@ metadata:
     {{- if eq .Values.environment "devel" }}
     ingress.kubernetes.io/rewrite-target: /
     {{- else }}
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: gce
     {{- end }}
 spec:
   {{- if eq .Values.environment "devel" }}
