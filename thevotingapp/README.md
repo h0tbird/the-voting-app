@@ -53,10 +53,20 @@ clusters create "kube-1" \
 --no-enable-autorepair
 ```
 
+#### Connect:
+```
+gcloud container clusters get-credentials kube-1 --zone europe-north1-a --project john-brown
+```
+
 #### Install the tiller:
 ```
 kubectl create serviceaccount --namespace kube-system tiller
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account tiller
+```
+
+...or patch a running one:
+```
 kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
 helm init --service-account tiller --upgrade
 ```
